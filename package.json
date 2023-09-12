@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist",
-    "dev": "ts-node-dev ./",
+    "dev": "tsnd ./",
     "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,7 @@
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.9.5",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
