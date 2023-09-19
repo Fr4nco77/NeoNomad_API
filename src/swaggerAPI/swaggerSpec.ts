@@ -11,10 +11,14 @@ const spec = {
     servers: [
       {
         url: "https://nomad-api-drtc.onrender.com"
+<<<<<<< HEAD
       },
       // {
       //   url: "http://localhost:3001/",
       // },
+=======
+      }
+>>>>>>> 6c5cfc2bd0c2888268cf8c8a90a6ac8e8194a53a
     ],
   },
   apis: ["./src/swaggerAPI/docs/*.ts"],
