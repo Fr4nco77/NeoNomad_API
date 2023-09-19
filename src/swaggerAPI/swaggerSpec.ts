@@ -10,6 +10,9 @@ const spec = {
     },
     servers: [
       {
+        url: "https://nomad-api-drtc.onrender.com"
+      },
+      {
         url: "http://localhost:3001/",
       },
     ],
