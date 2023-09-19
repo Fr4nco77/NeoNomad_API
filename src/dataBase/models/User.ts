@@ -1,6 +1,7 @@
 import { Model, Table, Column, DataType } from "sequelize-typescript";
 import { Optional } from "sequelize";
 import {UserAttributes, optional} from "./interfaces/user";
+import bcrypt from "bcryptjs";
 
 interface UserCreationAttributes extends Optional<UserAttributes, optional> { }
 
@@ -103,4 +104,15 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
         allowNull: true
     })
     resetToken!: string
+
+    public hashPassword() {
+        const salt = 10;
+        const hashedPassword = bcrypt.hashSync(this.password, salt);
+        this.password = hashedPassword;
+    }
+
+    public comparePassword(password: string) {
+        const isValidPassword = bcrypt.compareSync(password, this.password)
+        return isValidPassword;
+    }
 }

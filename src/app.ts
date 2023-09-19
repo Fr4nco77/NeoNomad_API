@@ -3,9 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import router from "./routes";
-import dotenv from "dotenv";
 
-dotenv.config();
 const app = express();
 
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));

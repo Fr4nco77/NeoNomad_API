@@ -2,22 +2,19 @@ import { body } from "express-validator";
 import { NextFunction, Request, Response } from "express";
 import validate from "../utils/validateResults";
 import { User } from "../dataBase/models/User";
-import bcrypt from "bcryptjs";
 
 export const validateSignUp = [
     body("name")
         .isString()
-        .withMessage("El tipo de dato de name no es valido")
+        .withMessage("Name debe ser un string")
         .trim()
         .exists({ values: "falsy" })
         .withMessage("No se recibio un valor valido de name")
         .escape(),
     body("email")
         .isString()
-        .withMessage("El tipo de dato de email no es valido")
+        .withMessage("Email debe ser un string")
         .trim()
-        .exists({ values: "falsy" })
-        .withMessage("No se recibio un valor valido de email")
         .isEmail()
         .withMessage("El formato de email no es valido")
         .escape()
@@ -28,10 +25,10 @@ export const validateSignUp = [
         }),
     body("password")
         .isString()
-        .withMessage("El tipo de dato de password no es valido")
+        .withMessage("Password debe ser un string")
         .trim()
         .exists({ values: "falsy" })
-        .withMessage("No se recibio un valor valido de name")
+        .withMessage("No se recibio un valor valido de password")
         .escape(),
     (req: Request, res: Response, next: NextFunction): void => {
         validate(req, res, next);
@@ -41,52 +38,66 @@ export const validateSignUp = [
 export const validateSignIn = [
     body("email")
         .isString()
-        .withMessage("El tipo de dato de email no es valido")
+        .withMessage("Email debe ser un string")
         .trim()
-        .exists({ values: "falsy" })
-        .withMessage("No se recibio un valor valido de email")
         .isEmail()
         .withMessage("El formato de email no es valido")
         .escape()
-        .toLowerCase()
-        .custom(async (value, { req }): Promise<void> => {
-            const user = await User.findOne({ where: { email: value } });
-            if (!user) throw new Error("Email o contraseña incorrecta");
-            if (user.isBanned) throw new Error("Lo sentimos, pero tu cuenta ha sido suspendida debido a una violación de nuestras políticas");
-        }),
+        .toLowerCase(),
     body("password")
         .isString()
-        .withMessage("El tipo de dato de password no es valido")
+        .withMessage("Password debe ser un string")
         .trim()
         .exists({ values: "falsy" })
         .withMessage("No se recibio un valor valido de password")
-        .escape()
-        .custom(async (value, { req }): Promise<void> => {
-            const user = await User.findOne({ where: { email: req.body.email } });
-            const isValidPassword = await bcrypt.compare(value, user!.password);
-            if (!isValidPassword) throw new Error("Email o contraseña incorrecta");
-        }),
+        .escape(),
     (req: Request, res: Response, next: NextFunction): void => {
         validate(req, res, next)
     },
 ]
 
-export const validateThirdPartyAuth = [
-    body("email")
+export const validateOAuth = [
+    body("code")
         .isString()
-        .withMessage("El tipo de dato de email no es valido")
+        .withMessage("Code debe ser un string")
         .trim()
         .exists({ values: "falsy" })
-        .withMessage("No se recibio un valor valido de email")
-        .escape()
-        .toLowerCase()
-        .custom(async (value, { req }): Promise<void> => {
-            const user = await User.findOne({ where: { email: value } });
-            if (!user) throw new Error("Email incorrecto");
-            if (user.localRegistration) throw new Error("Usuario registrado localmente");
-            if (user.isBanned) throw new Error("Lo sentimos, pero tu cuenta ha sido suspendida debido a una violación de nuestras políticas");
-        }),
+        .withMessage("El contenido de code no es valido"),
     (req: Request, res: Response, next: NextFunction): void => {
         validate(req, res, next)
-    }
+    },
+]
+
+export const validateSendReset = [
+    body("email")
+        .isString()
+        .withMessage("Email debe ser un string")
+        .trim()
+        .isEmail()
+        .withMessage("El formato de email no es valido")
+        .escape()
+        .toLowerCase(),
+    (req: Request, res: Response, next: NextFunction) => {
+        validate(req, res, next);
+    },
+]
+
+export const validateResetPassword = [
+    body("token")
+        .isString()
+        .withMessage("Name debe ser un string")
+        .trim()
+        .exists({ values: "falsy" })
+        .withMessage("No se recibio un valor valido de name")
+        .escape(),
+    body("newPassword")
+        .isString()
+        .withMessage("Password debe ser un string")
+        .trim()
+        .exists({ values: "falsy" })
+        .withMessage("No se recibio un valor valido de password")
+        .escape(),
+    (req: Request, res: Response, next: NextFunction): void => {
+        validate(req, res, next)
+    },
 ]

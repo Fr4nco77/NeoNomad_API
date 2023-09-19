@@ -14,4 +14,4 @@ export interface UserAttributes {
     resetToken: string
 }
 
-export type optional = "id" | "image" | "lastname" | "role" | "phone" | "address" | "localRegistration" | "isBanned" | "validated" | "resetToken";
+export type optional = "id" | "password" | "image" | "lastname" | "role" | "phone" | "address" | "localRegistration" | "isBanned" | "validated" | "resetToken";
