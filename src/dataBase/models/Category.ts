@@ -1,6 +1,7 @@
 import { Model, Table, Column, DataType, HasMany } from "sequelize-typescript";
 import { Optional } from "sequelize";
 import { CategoryAttributes, optional } from "./interfaces/category";
+import { Product } from "./Product";
 
 interface CreationCategoryAttributes extends Optional<CategoryAttributes, optional> { }
 
@@ -30,7 +31,6 @@ export class Category extends Model<CategoryAttributes, CreationCategoryAttribut
     })
     description!: string
 
-    // @HasMany({
-
-    // })
+    @HasMany(() => Product)
+    products!: Product[];
 }

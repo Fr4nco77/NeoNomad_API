@@ -1,6 +1,7 @@
-import { Model, Table, Column, DataType, BelongsTo } from "sequelize-typescript";
+import { Model, Table, Column, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
 import { Optional } from "sequelize";
 import { ProductAttributes, optional } from "./interfaces/product";
+import { Category } from "./Category";
 
 interface ProductCreationAttributes extends Optional<ProductAttributes, optional> { }
 
@@ -48,7 +49,10 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     })
     price!: number
 
-    // @BelongsTo({
+    @ForeignKey(()=> Category)
+    @Column
+    categoryID!: number
 
-    // })
+    @BelongsTo(() => Category, "categoryID")
+    category!: Category
 }
