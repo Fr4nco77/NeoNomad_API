@@ -9,7 +9,7 @@ const sequelize = new sequelize_typescript_1.Sequelize({
     host: process.env.DB_HOST,
     models: [__dirname + '/models']
 });
-const { User, Product, Cart, Category } = sequelize.models;
+const { User, Product, Cart, Category, Detail, Order } = sequelize.models;
 Category.hasMany(Product, {
     foreignKey: "categoryID"
 });
@@ -26,6 +26,24 @@ User.hasMany(Cart, {
     foreignKey: "userID"
 });
 Cart.belongsTo(User, {
+    foreignKey: "userID"
+});
+Product.hasOne(Detail, {
+    foreignKey: "productID"
+});
+Detail.belongsTo(Product, {
+    foreignKey: "productID"
+});
+Order.hasMany(Detail, {
+    foreignKey: "orderID"
+});
+Detail.belongsTo(Order, {
+    foreignKey: "orderID"
+});
+User.hasMany(Order, {
+    foreignKey: "userID"
+});
+Order.belongsTo(User, {
     foreignKey: "userID"
 });
 exports.default = sequelize;
