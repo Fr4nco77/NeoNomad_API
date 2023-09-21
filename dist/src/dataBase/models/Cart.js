@@ -9,37 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Category = void 0;
+exports.Cart = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-let Category = class Category extends sequelize_typescript_1.Model {
+let Cart = class Cart extends sequelize_typescript_1.Model {
 };
-exports.Category = Category;
+exports.Cart = Cart;
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.UUID,
+        defaultValue: sequelize_typescript_1.DataType.UUIDV4,
+        primaryKey: true
+    }),
+    __metadata("design:type", String)
+], Cart.prototype, "id", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+        allowNull: false,
+        validate: {
+            min: 1,
+        }
     }),
     __metadata("design:type", Number)
-], Category.prototype, "id", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING,
-        allowNull: false,
-        unique: true,
-    }),
-    __metadata("design:type", String)
-], Category.prototype, "name", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING,
-        allowNull: true
-    }),
-    __metadata("design:type", String)
-], Category.prototype, "description", void 0);
-exports.Category = Category = __decorate([
+], Cart.prototype, "quantity", void 0);
+exports.Cart = Cart = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: "Categories",
-        timestamps: true,
+        tableName: "Carts",
+        timestamps: true
     })
-], Category);
+], Cart);

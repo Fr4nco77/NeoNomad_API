@@ -1,16 +1,11 @@
-import { Model, Table, Column, DataType, HasMany } from "sequelize-typescript";
-import { Optional } from "sequelize";
-import { CategoryAttributes, optional } from "./interfaces/category";
-import { Product } from "./Product";
-
-interface CreationCategoryAttributes extends Optional<CategoryAttributes, optional> { }
+import { Model, Table, Column, DataType } from "sequelize-typescript";
 
 @Table({
     tableName: "Categories",
     timestamps: true,
 })
 
-export class Category extends Model<CategoryAttributes, CreationCategoryAttributes> {
+export class Category extends Model {
     @Column({
         type: DataType.INTEGER,
         primaryKey: true,
@@ -30,7 +25,4 @@ export class Category extends Model<CategoryAttributes, CreationCategoryAttribut
         allowNull: true
     })
     description!: string
-
-    @HasMany(() => Product)
-    products!: Product[];
 }

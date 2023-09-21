@@ -21,7 +21,7 @@ const seedProduct = async (): Promise<void> => {
             where: { name: categoria },
             defaults: { name: categoria }
         });
-        await product.$set("category", category)
+        await product.$set("category" as keyof Product, category)
     }
 }
 

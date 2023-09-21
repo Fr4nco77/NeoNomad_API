@@ -1,4 +1,5 @@
 import { OAuth2Client } from "google-auth-library";
+import { GetTokenResponse } from "google-auth-library/build/src/auth/oauth2client";
 
 const oAuth2Client = new OAuth2Client(
     process.env.CLIENT_ID,
@@ -7,11 +8,10 @@ const oAuth2Client = new OAuth2Client(
 )
 
 export const getUserInfo = async (code: string): Promise<object> => {
-    const { tokens } = await oAuth2Client.getToken(code)
-    if(!tokens.id_token) throw new Error("Error obtaining user information");
+    const { tokens } = await getTokens(code);
 
     const ticket = await oAuth2Client.verifyIdToken({
-        idToken: tokens.id_token,
+        idToken: tokens.id_token!,
         audience: process.env.CLIENT_ID
     })
     
@@ -19,4 +19,11 @@ export const getUserInfo = async (code: string): Promise<object> => {
     if(!payload) throw new Error("Error obtaining user information");
     
     return payload;
+}
+
+const getTokens = async (code: string): Promise<GetTokenResponse> => {
+    const data = await oAuth2Client.getToken(code);
+    if(!data.tokens) throw new Error("Error obtaining user information");
+
+    return data;
 }

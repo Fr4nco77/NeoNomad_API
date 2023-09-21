@@ -29,7 +29,7 @@ const transporterAdmin = nodemailer.createTransport({
 
 const sendEmail = async (template: Function, values: object): Promise<void> => {
     try {
-        //await transporterUser.verify();
+        await transporterUser.verify();
         await transporterUser.sendMail(template(values));
     } catch (error: any) {
         await transporterAdmin.sendMail(failedNotification(error.message));

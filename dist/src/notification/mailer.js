@@ -40,7 +40,7 @@ const transporterAdmin = nodemailer_1.default.createTransport({
 });
 const sendEmail = (template, values) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //await transporterUser.verify();
+        yield transporterUser.verify();
         yield transporterUser.sendMail(template(values));
     }
     catch (error) {

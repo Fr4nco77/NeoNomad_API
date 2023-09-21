@@ -1,9 +1,5 @@
 import { Model, Table, Column, DataType } from "sequelize-typescript";
-import { Optional } from "sequelize";
-import {UserAttributes, optional} from "./interfaces/user";
 import bcrypt from "bcryptjs";
-
-interface UserCreationAttributes extends Optional<UserAttributes, optional> { }
 
 @Table({
     tableName: "Users",
@@ -12,7 +8,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, optional> { }
 })
 
 
-export class User extends Model<UserAttributes, UserCreationAttributes> {
+export class User extends Model {
     @Column({
         type: DataType.UUID,
         defaultValue: DataType.UUIDV4,

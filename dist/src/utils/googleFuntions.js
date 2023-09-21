@@ -13,9 +13,7 @@ exports.getUserInfo = void 0;
 const google_auth_library_1 = require("google-auth-library");
 const oAuth2Client = new google_auth_library_1.OAuth2Client(process.env.CLIENT_ID, process.env.CLIENT_SECRET, 'postmessage');
 const getUserInfo = (code) => __awaiter(void 0, void 0, void 0, function* () {
-    const { tokens } = yield oAuth2Client.getToken(code);
-    if (!tokens.id_token)
-        throw new Error("Error obtaining user information");
+    const { tokens } = yield getTokens(code);
     const ticket = yield oAuth2Client.verifyIdToken({
         idToken: tokens.id_token,
         audience: process.env.CLIENT_ID
@@ -26,3 +24,9 @@ const getUserInfo = (code) => __awaiter(void 0, void 0, void 0, function* () {
     return payload;
 });
 exports.getUserInfo = getUserInfo;
+const getTokens = (code) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield oAuth2Client.getToken(code);
+    if (!data.tokens)
+        throw new Error("Error obtaining user information");
+    return data;
+});

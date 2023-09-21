@@ -8,18 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./src/app"));
-const config_1 = __importDefault(require("./src/dataBase/config"));
-const seedProduct_1 = __importDefault(require("./src/seeds/products/seedProduct"));
-const seedAdmin_1 = __importDefault(require("./src/seeds/admin/seedAdmin"));
-config_1.default.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, seedProduct_1.default)();
-    yield (0, seedAdmin_1.default)();
-    app_1.default.listen(process.env.SERVER_PORT, () => {
-        console.log(`Server on port ${process.env.SERVER_PORT}`);
+const User_1 = require("../../dataBase/models/User");
+const seedAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield User_1.User.create({
+        name: "Pepe",
+        email: "fcarreras777@gmail.com",
+        password: "Elpepe37",
+        validated: true,
+        role: "admin"
     });
-}));
+    user.hashPassword();
+    yield user.save();
+});
+exports.default = seedAdmin;

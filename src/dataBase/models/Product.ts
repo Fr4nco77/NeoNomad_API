@@ -1,9 +1,4 @@
-import { Model, Table, Column, DataType, BelongsTo, ForeignKey } from "sequelize-typescript";
-import { Optional } from "sequelize";
-import { ProductAttributes, optional } from "./interfaces/product";
-import { Category } from "./Category";
-
-interface ProductCreationAttributes extends Optional<ProductAttributes, optional> { }
+import { Model, Table, Column, DataType } from "sequelize-typescript";
 
 @Table({
     tableName: "Products",
@@ -11,7 +6,7 @@ interface ProductCreationAttributes extends Optional<ProductAttributes, optional
     paranoid: true
 })
 
-export class Product extends Model<ProductAttributes, ProductCreationAttributes> {
+export class Product extends Model {
     @Column({
         type: DataType.UUID,
         defaultValue: DataType.UUIDV4,
@@ -49,10 +44,4 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
     })
     price!: number
 
-    @ForeignKey(()=> Category)
-    @Column
-    categoryID!: number
-
-    @BelongsTo(() => Category, "categoryID")
-    category!: Category
 }

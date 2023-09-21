@@ -27,7 +27,7 @@ const register = ({ name, email, password }) => __awaiter(void 0, void 0, void 0
         name,
         email,
         status: "CREATED",
-        message: "¡Gracias por registrarte! Para poder seguir adelante, necesitamos que valides tu dirección de correo electrónico. Por favor, revisa tu bandeja de entrada y sigue las instrucciones en el correo electrónico que te hemos enviado. Si no encuentras el correo electrónico, revisa también la carpeta de spam. ¡Esperamos verte pronto en nuestra plataforma!"
+        message: "¡Para continuar, necesitamos que confirmes tu dirección de correo electrónico!"
     };
 });
 exports.register = register;

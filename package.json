@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file=.env ./dist",
-    "dev": "tsnd --env-file=.env ./",
+    "start": "node ./dist",
+    "dev": "tsnd ./",
     "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
