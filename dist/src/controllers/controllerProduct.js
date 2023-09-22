@@ -39,7 +39,7 @@ const getAll = (querys) => __awaiter(void 0, void 0, void 0, function* () {
         offset: page ? (+page - 1) * (+limit || 0) : undefined,
         attributes
     });
-    if (!products)
+    if (!products || products.count === 0)
         throw new Error("No se encontraron productos");
     return products;
 });

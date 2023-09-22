@@ -29,9 +29,6 @@ export class Product extends Model {
     @Column({
         type: DataType.STRING,
         allowNull: false,
-        validate: {
-            isUrl: true
-        }
     })
     image!: string
 

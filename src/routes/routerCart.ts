@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addProduct, removeProduct, getProducts } from "../handlers/handler Cart";
+import { addProduct, removeProduct, getProducts } from "../handlers/handlerCart";
 import { validateUserAuthorization } from "../middlewares/validateToken";
 import { validateProductID } from "../middlewares/validateProductID";
 import { validateQuantity } from "../middlewares/validateCart";

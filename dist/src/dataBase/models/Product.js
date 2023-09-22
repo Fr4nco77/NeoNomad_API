@@ -40,9 +40,6 @@ __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
         allowNull: false,
-        validate: {
-            isUrl: true
-        }
     }),
     __metadata("design:type", String)
 ], Product.prototype, "image", void 0);

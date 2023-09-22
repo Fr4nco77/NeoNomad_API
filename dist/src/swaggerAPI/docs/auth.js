@@ -87,7 +87,6 @@
  *                  type: string
  *                authorization:
  *                  type: string
- *                message: string
  *      400:
  *        description: Se genero un error debido a que el tipo de algun dato enviado por body es invalido o inexistente.
  *        content:

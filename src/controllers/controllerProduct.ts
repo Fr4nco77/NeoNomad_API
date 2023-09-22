@@ -6,7 +6,7 @@ import { querys } from "./interfaces/product";
 export const getAll = async (querys: querys): Promise<object> => {
     const { name, category, sortBy, sortOrder, page, limit } = querys
 
-    const filters: any = {};
+    const filters: Record<string, any> = {};
 
     if (category) {
         filters.categoryID = category;
@@ -33,7 +33,7 @@ export const getAll = async (querys: querys): Promise<object> => {
         offset: page ? (+page - 1) * (+limit || 0) : undefined,
         attributes
     });
-    if (!products) throw new Error("No se encontraron productos");
+    if (!products || products.count === 0) throw new Error("No se encontraron productos");
 
     return products;
 }

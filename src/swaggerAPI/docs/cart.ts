@@ -14,7 +14,7 @@
  *          type: string
  *    responses:
  *      200:
- *        description: OK
+ *        description: Encontro y devolvio el carrito
  *        content:
  *          application/json:
  *            schema:
@@ -84,7 +84,7 @@
  *                type: integer
  *    responses:
  *      200:
- *        description: OK
+ *        description: Actualizo los productos de carrito
  *        content:
  *          application/json:
  *            schema:
@@ -148,7 +148,7 @@
  *                type: string
  *    responses:
  *      200:
- *        description: OK
+ *        description: Borro el producto del carrito
  *        content:
  *          application/json:
  *            schema:

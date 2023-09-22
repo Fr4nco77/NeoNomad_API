@@ -15,7 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Product_1 = require("../../dataBase/models/Product");
 const Category_1 = require("../../dataBase/models/Category");
 const data_1 = __importDefault(require("./data"));
+const User_1 = require("../../dataBase/models/User");
+const Order_1 = require("../../dataBase/models/Order");
+const Detail_1 = require("../../dataBase/models/Detail");
 const seedProduct = () => __awaiter(void 0, void 0, void 0, function* () {
+    let index = 1;
     for (const productData of data_1.default) {
         const { name, description, image, price, categoria } = productData;
         const [product, created] = yield Product_1.Product.findOrCreate({
@@ -34,6 +38,29 @@ const seedProduct = () => __awaiter(void 0, void 0, void 0, function* () {
             defaults: { name: categoria }
         });
         yield product.$set("category", category);
+        const user = yield User_1.User.create({
+            name: "pepe" + index,
+            email: "elpepe" + index + "@gmail.com",
+            password: "elpepe37",
+            validated: true,
+        });
+        user.hashPassword();
+        yield user.save();
+        const order = yield Order_1.Order.create({
+            status: "Aprovado",
+            total: product.price
+        });
+        const detail = yield Detail_1.Detail.create({
+            quantity: 1,
+            unitPrice: product.price,
+            totalPrice: product.price
+        });
+        yield Promise.all([
+            order.$set("user", user),
+            order.$add("detail", detail),
+            detail.$set("product", product)
+        ]);
+        index++;
     }
 });
 exports.default = seedProduct;
