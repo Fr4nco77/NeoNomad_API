@@ -3,6 +3,6 @@ export interface querys {
     name: string
     sortBy: string
     sortOrder: string
-    page: string
-    limit: string 
+    page: number
+    limit: number 
 }

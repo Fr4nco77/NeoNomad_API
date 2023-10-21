@@ -35,7 +35,14 @@ export const getAll = async (querys: querys): Promise<object> => {
     });
     if (!products || products.count === 0) throw new Error("No se encontraron productos");
 
-    return products;
+    const totalPages = Math.ceil(products.count / (limit || 1));
+    const currentPage = page ? +page : 1;
+
+    return {
+        products,
+        totalPages,
+        currentPage
+    };
 }
 
 export const getByID = async ({ id }: { id: string }): Promise<Product> => {
