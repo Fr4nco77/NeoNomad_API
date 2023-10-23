@@ -41,7 +41,13 @@ const getAll = (querys) => __awaiter(void 0, void 0, void 0, function* () {
     });
     if (!products || products.count === 0)
         throw new Error("No se encontraron productos");
-    return products;
+    const totalPages = Math.ceil(products.count / (limit || 1));
+    const currentPage = page ? +page : 1;
+    return {
+        products,
+        totalPages,
+        currentPage
+    };
 });
 exports.getAll = getAll;
 const getByID = ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
